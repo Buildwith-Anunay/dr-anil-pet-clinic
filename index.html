@@ -8,7 +8,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
 
 <style>
-body{font-family:Poppins;margin:0;background:#f4f8fb;color:#333;}
+body{font-family:Poppins;margin:0;background:#f4f8fb;color:#333}
 
 /* HEADER */
 header{
@@ -19,14 +19,14 @@ display:flex;
 justify-content:space-between;
 align-items:center;
 }
-header h1{font-size:20px;}
-header a{color:white;text-decoration:none;margin-left:15px;}
+header h1{font-size:18px}
+header a{color:white;margin-left:15px;text-decoration:none}
 
 /* HERO */
 .hero{
 height:90vh;
-background:linear-gradient(rgba(11,60,93,0.7),rgba(11,60,93,0.7)),
-url('https://images.unsplash.com/photo-1629909613654-28e377c37b09');
+background:linear-gradient(rgba(11,60,93,0.4),rgba(11,60,93,0.4)),
+url('https://images.unsplash.com/photo-1583337130417-3346a1be7dee');
 background-size:cover;
 display:flex;
 flex-direction:column;
@@ -35,8 +35,7 @@ align-items:center;
 color:white;
 text-align:center;
 }
-.hero h2{font-size:40px;}
-.hero p{margin:10px 0;}
+.hero h2{font-size:38px}
 .btn{
 background:#00a8cc;
 color:white;
@@ -46,29 +45,32 @@ border-radius:5px;
 cursor:pointer;
 }
 
-/* SECTION */
-section{padding:60px 20px;max-width:1100px;margin:auto;}
-h2{text-align:center;color:#0b3c5d;margin-bottom:20px;}
+/* SECTIONS */
+section{
+padding:60px 20px;
+max-width:1100px;
+margin:auto;
+animation:fadeIn 1s ease;
+}
+h2{text-align:center;color:#0b3c5d}
 
-/* CARDS */
+/* GRID */
 .grid{
 display:grid;
 grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
 gap:20px;
 }
+
+/* CARD */
 .card{
 background:white;
 padding:20px;
 border-radius:12px;
 box-shadow:0 5px 15px rgba(0,0,0,0.1);
 text-align:center;
+transition:0.3s;
 }
-
-/* IMAGE SECTION */
-.gallery img{
-width:100%;
-border-radius:10px;
-}
+.card:hover{transform:translateY(-5px)}
 
 /* FORM */
 form{
@@ -85,8 +87,16 @@ border:1px solid #ccc;
 border-radius:5px;
 }
 
+/* SLIDER */
+.slider img{
+width:100%;
+height:350px;
+object-fit:cover;
+border-radius:10px;
+}
+
 /* MAP */
-iframe{width:100%;height:300px;border:0;border-radius:10px;}
+iframe{width:100%;height:300px;border:0;border-radius:10px}
 
 /* FOOTER */
 footer{
@@ -105,8 +115,14 @@ background:#25D366;
 color:white;
 padding:15px;
 border-radius:50%;
-text-decoration:none;
 font-size:20px;
+text-decoration:none;
+}
+
+/* ANIMATION */
+@keyframes fadeIn{
+from{opacity:0; transform:translateY(20px)}
+to{opacity:1; transform:translateY(0)}
 }
 </style>
 </head>
@@ -131,8 +147,9 @@ font-size:20px;
 <section>
 <h2>About Us</h2>
 <p>
-At Dr Anil's Pet Animal Clinic, we provide high-quality veterinary care with compassion and dedication. 
-We ensure your pets feel safe, comfortable, and well-treated at every visit.
+At Dr Anil’s Pet Animal Clinic, we are dedicated to delivering advanced veterinary care with a compassionate touch. 
+We understand that pets are family, and our approach focuses on personalized treatment, accurate diagnosis, and gentle handling.
+From routine checkups to emergency care, we ensure a safe and stress-free environment.
 </p>
 </section>
 
@@ -148,9 +165,26 @@ We ensure your pets feel safe, comfortable, and well-treated at every visit.
 </div>
 </section>
 
-<section class="gallery">
-<h2>Our Clinic</h2>
-<img src="https://yappe.in/uploads/business/395829/2023-05-08-6458e4a9a66a4.jpg" alt="clinic image">
+<section>
+<h2>Our Clinic Gallery</h2>
+<div class="slider">
+<img id="slide" src="https://images.unsplash.com/photo-1583337130417-3346a1be7dee">
+</div>
+</section>
+
+<section>
+<h2>Google Reviews</h2>
+<div class="grid">
+<div class="card">
+⭐ ⭐ ⭐ ⭐ ⭐
+<p>Very caring doctor and great service.</p>
+</div>
+<div class="card">
+⭐ ⭐ ⭐ ⭐ ⭐
+<p>Best pet clinic in Andheri East.</p>
+</div>
+</div>
+<a href="https://maps.app.goo.gl/1v7QJUiYhkXvzZ9d9" target="_blank" class="btn">View Reviews</a>
 </section>
 
 <section id="appointment">
@@ -161,21 +195,25 @@ We ensure your pets feel safe, comfortable, and well-treated at every visit.
 <input type="tel" name="phone" placeholder="Phone Number" required>
 <input type="text" name="pet" placeholder="Pet Type" required>
 <textarea name="problem" placeholder="Describe Problem"></textarea>
-<button class="btn" type="submit">Submit</button>
+<button class="btn">Submit</button>
 </form>
 
 <p><b>Timings:</b><br>
-Sunday: 12:00 AM - 04:00 PM<br>
-Mon-Sat: 11:30 AM - 06:00 PM</p>
+Sunday: 12PM - 4PM<br>
+Mon-Sat: 11:30AM - 6PM</p>
 </section>
 
 <section id="contact">
-<h2>Contact & Location</h2>
-<p><b>Address:</b> Dr Anils Pet Animal Clinic, Bus Depot, Satbawdi, Jogeshwari - Vikhroli Link Rd, Opp. Majas, Near Oberoi Splendor, Andheri East, Mumbai, Maharashtra 400060</p>
+<h2>Visit Our Clinic</h2>
+
+<iframe src="https://www.google.com/maps?q=Dr+Anils+Pet+Animal+Clinic+Mumbai&output=embed"></iframe>
+
+<br><br>
+
+<a href="https://maps.app.goo.gl/1v7QJUiYhkXvzZ9d9" target="_blank" class="btn">Get Directions</a>
+
 <p><b>Phone:</b> 9029102559</p>
 <p><b>Email:</b> draksmed@gmail.com</p>
-
-<iframe src="https://maps.google.com/maps?q=Dr%20Anils%20Pet%20Animal%20Clinic%20Mumbai&t=&z=13&ie=UTF8&iwloc=&output=embed"></iframe>
 </section>
 
 <a class="whatsapp" href="https://wa.me/919029102559">💬</a>
@@ -183,6 +221,20 @@ Mon-Sat: 11:30 AM - 06:00 PM</p>
 <footer>
 <p>© 2026 Dr Anil's Pet Animal Clinic</p>
 </footer>
+
+<script>
+let images = [
+"https://images.unsplash.com/photo-1583337130417-3346a1be7dee",
+"https://images.unsplash.com/photo-1576201836106-db1758fd1c97",
+"https://images.unsplash.com/photo-1558944351-cb4a2a1d7f02"
+];
+
+let i = 0;
+setInterval(() => {
+i = (i + 1) % images.length;
+document.getElementById("slide").src = images[i];
+}, 3000);
+</script>
 
 </body>
 </html>
