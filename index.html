@@ -762,7 +762,7 @@
           <div class="contact-icon">✉️</div>
           <div>
             <strong>Email</strong>
-            <a href="mailto:draksmed@gmail.com">draksmed@gmail.com</a>
+            <a href="/cdn-cgi/l/email-protection#9bffe9faf0e8f6feffdbfcf6faf2f7b5f8f4f6"><span class="__cf_email__" data-cfemail="8aeef8ebe1f9e7efeecaede7ebe3e6a4e9e5e7">[email&#160;protected]</span></a>
           </div>
         </div>
         <div class="contact-item">
@@ -824,7 +824,7 @@
 <!-- WHATSAPP FLOAT -->
 <a href="https://wa.me/919029102559" class="whatsapp-float" target="_blank" title="Chat on WhatsApp">💬</a>
 
-<script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
   // Navbar scroll shadow
   window.addEventListener('scroll', () => {
     document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 20);
@@ -853,13 +853,54 @@
     }
   }
 
-  // Form submit
+  // Form submit → WhatsApp notification to Dr. Anil
   function handleSubmit(e) {
     e.preventDefault();
-    const btn = e.target.querySelector('.btn-submit');
-    btn.textContent = '✅ Appointment Request Sent!';
-    btn.style.background = 'var(--brown)';
-    setTimeout(() => { btn.textContent = 'Confirm Appointment →'; btn.style.background = ''; }, 3500);
+    const f = e.target;
+
+    const name    = f.querySelector('input[placeholder*="Ravi"]').value.trim();
+    const phone   = f.querySelector('input[type="tel"]').value.trim();
+    const petName = f.querySelector('input[placeholder*="Bruno"]').value.trim();
+    const petType = f.querySelectorAll('select')[0].value;
+    const date    = f.querySelector('input[type="date"]').value;
+    const service = f.querySelectorAll('select')[1].value;
+    const notes   = f.querySelector('textarea').value.trim();
+
+    const dateStr = date
+      ? new Date(date).toLocaleDateString('en-IN', { weekday:'long', day:'numeric', month:'long', year:'numeric' })
+      : 'Not specified';
+
+    const msg = [
+      '🐾 *New Appointment Request*',
+      '━━━━━━━━━━━━━━━━━━',
+      '👤 *Patient Name:* ' + name,
+      '📞 *Phone:* ' + phone,
+      '🐶 *Pet Name:* ' + (petName || 'Not provided'),
+      '🐾 *Pet Type:* ' + petType,
+      '📅 *Preferred Date:* ' + dateStr,
+      '🩺 *Service Needed:* ' + service,
+      '📝 *Notes:* ' + (notes || 'None'),
+      '━━━━━━━━━━━━━━━━━━',
+      '_Sent from Dr. Anil\'s Pet Clinic website_'
+    ].join('\n');
+
+    const waURL = 'https://wa.me/919029102559?text=' + encodeURIComponent(msg);
+
+    const btn = f.querySelector('.btn-submit');
+    btn.textContent = '✅ Redirecting to WhatsApp...';
+    btn.style.background = '#25d366';
+    btn.disabled = true;
+
+    setTimeout(() => {
+      window.open(waURL, '_blank');
+      btn.textContent = '✅ Appointment Sent via WhatsApp!';
+      btn.disabled = false;
+      setTimeout(() => {
+        btn.textContent = 'Confirm Appointment →';
+        btn.style.background = '';
+        f.reset();
+      }, 4000);
+    }, 600);
   }
 </script>
 </body>
