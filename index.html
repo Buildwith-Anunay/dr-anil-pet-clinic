@@ -53,9 +53,9 @@
       display: flex; align-items: center; gap: 12px; text-decoration: none;
     }
     .nav-logo-icon {
-      width: 44px; height: 44px; background: var(--green);
+      width: 44px; height: 44px; background: transparent;
       border-radius: 50%; display: grid; place-items: center;
-      font-size: 22px;
+      overflow: hidden;
     }
     .nav-logo-text { line-height: 1.2; }
     .nav-logo-text strong {
@@ -581,7 +581,7 @@
 <!-- NAV -->
 <nav id="navbar">
   <a href="#" class="nav-logo">
-    <div class="nav-logo-icon">🐾</div>
+    <div class="nav-logo-icon" style="background:transparent;padding:0;overflow:hidden;"><img src="logo.png" alt="Logo" style="width:44px;height:44px;object-fit:contain;display:block;"/></div>
     <div class="nav-logo-text">
       <strong>Dr. Anil's</strong>
       <span>Pet Animal Clinic</span>
@@ -882,7 +882,7 @@
           <div class="contact-icon">✉️</div>
           <div>
             <strong>Email</strong>
-            <a id="contact-email" href="#" onclick="this.href='mailto:'+this.dataset.u+'@'+this.dataset.d; return true;" data-u="draksmed" data-d="gmail.com">draksmed@gmail.com</a>
+            <a id="contact-email" href="#" onclick="this.href='mailto:'+this.dataset.u+'@'+this.dataset.d; return true;" data-u="draksmed" data-d="gmail.com"><span class="__cf_email__" data-cfemail="6f0b1d0e041c020a0b2f08020e0603410c0002">[email&#160;protected]</span></a>
           </div>
         </div>
         <div class="contact-item">
@@ -911,6 +911,7 @@
 <footer>
   <div class="footer-top">
     <div class="footer-brand">
+      <img src="logo.png" alt="Dr Anil's Pet Clinic" style="width:80px;height:80px;object-fit:contain;margin-bottom:10px;display:block;filter:brightness(0) invert(1);"/>
       <strong>Dr. Anil's Pet Animal Clinic</strong>
       <p>Providing compassionate, expert veterinary care to the pets of Andheri East and beyond for over 18 years.</p>
     </div>
@@ -944,7 +945,7 @@
 <!-- WHATSAPP FLOAT -->
 <a href="https://wa.me/919029102559" class="whatsapp-float" target="_blank" title="Chat on WhatsApp">💬</a>
 
-<script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
   // Navbar scroll shadow
   window.addEventListener('scroll', () => {
     document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 20);
@@ -1014,14 +1015,4 @@
     setTimeout(() => {
       window.open(waURL, '_blank');
       btn.textContent = '✅ Appointment Sent via WhatsApp!';
-      btn.disabled = false;
-      setTimeout(() => {
-        btn.textContent = 'Confirm Appointment →';
-        btn.style.background = '';
-        f.reset();
-      }, 4000);
-    }, 600);
-  }
-</script>
-</body>
-</html>
+      btn.disabled
