@@ -446,10 +446,15 @@
       to   { opacity: 1; transform: translateY(0); }
     }
     .reveal {
-      opacity: 0; transform: translateY(30px);
+      opacity: 1; transform: translateY(0);
       transition: opacity .7s ease, transform .7s ease;
     }
-    .reveal.visible { opacity: 1; transform: translateY(0); }
+    .reveal.hidden {
+      opacity: 0; transform: translateY(30px);
+    }
+    .reveal.hidden.visible {
+      opacity: 1; transform: translateY(0);
+    }
 
     /* ── MOBILE ── */
     /* ── TABLET (≤900px) ── */
@@ -882,7 +887,7 @@
           <div class="contact-icon">✉️</div>
           <div>
             <strong>Email</strong>
-            <a id="contact-email" href="#" onclick="this.href='mailto:'+this.dataset.u+'@'+this.dataset.d; return true;" data-u="draksmed" data-d="gmail.com"><span class="__cf_email__" data-cfemail="6f0b1d0e041c020a0b2f08020e0603410c0002">[email&#160;protected]</span></a>
+            <span id="contact-email" style="font-size:16px;color:var(--dark);font-weight:500;cursor:pointer;"></span>
           </div>
         </div>
         <div class="contact-item">
@@ -945,23 +950,38 @@
 <!-- WHATSAPP FLOAT -->
 <a href="https://wa.me/919029102559" class="whatsapp-float" target="_blank" title="Chat on WhatsApp">💬</a>
 
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+<script>
   // Navbar scroll shadow
   window.addEventListener('scroll', () => {
     document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 20);
   });
 
-  // Scroll reveal
+  // Email anti-obfuscation — assembled by JS so Cloudflare cannot detect it
+  (function() {
+    var u = ['d','r','a','k','s','m','e','d'].join('');
+    var d = ['g','m','a','i','l','.','c','o','m'].join('');
+    var el = document.getElementById('contact-email');
+    if (el) {
+      el.textContent = u + '@' + d;
+      el.style.cursor = 'pointer';
+      el.onclick = function() { window.location.href = 'mai' + 'lto:' + u + '@' + d; };
+    }
+  })();
+
+  // Scroll reveal — safe: elements visible by default, hidden only if JS runs
   const reveals = document.querySelectorAll('.reveal');
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach((e, i) => {
-      if (e.isIntersecting) {
-        setTimeout(() => e.target.classList.add('visible'), i * 80);
-        observer.unobserve(e.target);
-      }
-    });
-  }, { threshold: 0.12 });
-  reveals.forEach(r => observer.observe(r));
+  if ('IntersectionObserver' in window) {
+    reveals.forEach(r => r.classList.add('hidden'));
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((e, i) => {
+        if (e.isIntersecting) {
+          setTimeout(() => e.target.classList.add('visible'), i * 60);
+          observer.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
+    reveals.forEach(r => observer.observe(r));
+  }
 
   // Mobile menu
   function toggleMenu() {
@@ -1015,4 +1035,14 @@
     setTimeout(() => {
       window.open(waURL, '_blank');
       btn.textContent = '✅ Appointment Sent via WhatsApp!';
-      btn.disabled
+      btn.disabled = false;
+      setTimeout(() => {
+        btn.textContent = 'Confirm Appointment →';
+        btn.style.background = '';
+        f.reset();
+      }, 4000);
+    }, 600);
+  }
+</script>
+</body>
+</html>
